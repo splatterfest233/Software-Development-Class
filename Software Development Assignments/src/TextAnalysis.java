@@ -1,8 +1,16 @@
 import java.util.*;
 import java.net.*;
-public class TextAnalysis {
+import javafx.application.Application;
+import javafx.stage.Stage;
+import javafx.scene.layout.*;
+import javafx.scene.text.Text;
+import javafx.scene.Scene;
+public class TextAnalysis extends Application{
+	
+	static Text text;
 
-	 public static void main(String[] args) throws Exception {
+	 public static void main(String[] args) throws Exception{
+		 
 		 //Instantiating the URL class
 	      URL url = new URL("https://www.gutenberg.org/files/1065/1065-h/1065-h.htm");
 	      //Retrieving the contents of the specified page
@@ -38,13 +46,15 @@ public class TextAnalysis {
 	    		    }
 	    		);
 	    		int i = 0;
+	    		text = new Text("");
 	    		for (Map.Entry<String,Integer> e : entries) {
 	    		    System.out.println(e.getKey()+":"+e.getValue());
 	    		    i++;
+	    		    text.setText(text.getText() + e.getKey()+":"+e.getValue() +"\n");
 	    		    if(i >= 20)
 	    		    	break;
 	    		}
-	 
+	    		launch(args);
 	 }
 	 
 	 public static Map<String, Integer> wordCount(String[] strings) {
@@ -62,6 +72,17 @@ public class TextAnalysis {
 		  return map;
 		}
 	 
-	
+	 
+	@Override
+	public void start(Stage primaryStage) throws Exception{
+		primaryStage.setTitle("Word Counts");
+		
+		StackPane layout = new StackPane();
+		layout.getChildren().add(text);
+		
+		Scene scene = new Scene(layout, 250, 500);
+		primaryStage.setScene(scene);
+		primaryStage.show();
+	}
 
 }
