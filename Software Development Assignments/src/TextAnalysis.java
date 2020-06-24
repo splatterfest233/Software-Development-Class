@@ -24,14 +24,13 @@ public class TextAnalysis extends Application{
 	      }
 	      //Retrieving the String from the String Buffer object
 	      String result = sb.toString();
-	     String nohtml = result.replaceAll("\\<[^>]*>","");
-	     nohtml = nohtml.replaceAll("&mdash;", " ");
-	     
-	     int poemStart = nohtml.indexOf("The Raven", 1100);
-	     String poemTest = nohtml.replace(nohtml.substring(0, poemStart), "");
-	     String poem = poemTest.substring(0, poemTest.indexOf("End"));
-	     
-	     String[] words = poem.replaceAll("[^a-zA-Z ]", "").toLowerCase().split("\\s+");
+	      String nohtml = htmlRemoval(result);
+
+		 int poemStart = nohtml.indexOf("The Raven", 1100);
+		 String poemTest = nohtml.replace(nohtml.substring(0, poemStart), "");
+		 String poem = poemTest.substring(0, poemTest.indexOf("End"));
+		     
+		 String[] words = poem.replaceAll("[^a-zA-Z ]", "").toLowerCase().split("\\s+");
 	     
 	     Map<String, Integer> counts = wordCount(words);
 	     List<Map.Entry<String,Integer>> entries = new ArrayList<Map.Entry<String,Integer>>(
@@ -55,6 +54,12 @@ public class TextAnalysis extends Application{
 	    		    	break;
 	    		}
 	    		launch(args);
+	 }
+	 
+	 public static String htmlRemoval(String result) {
+		 String nohtml = result.replaceAll("\\<[^>]*>","");
+	     nohtml = nohtml.replaceAll("&mdash;", " ");
+	     return nohtml;
 	 }
 	 
 	 public static Map<String, Integer> wordCount(String[] strings) {
