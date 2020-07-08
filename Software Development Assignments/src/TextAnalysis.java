@@ -55,12 +55,25 @@ public class TextAnalysis extends Application{
 	    		}
 	    		launch(args);
 	 }
+	 /**
+	  * Takes full string from website and removes html tags and special characters
+	  * 
+	  * @param result
+	  * @return
+	  */
 	 
 	 public static String htmlRemoval(String result) {
 		 String nohtml = result.replaceAll("\\<[^>]*>","");
 	     nohtml = nohtml.replaceAll("&mdash;", " ");
 	     return nohtml;
 	 }
+	 
+	 /**
+	  * Takes the string array of each word in the poem and counts the occurrences,
+	  * inputing them into a hashmap where each word is paired with the number of occurrences. 
+	  * @param strings
+	  * @return
+	  */
 	 
 	 public static Map<String, Integer> wordCount(String[] strings) {
 		  Map<String, Integer> map = new HashMap<String, Integer> ();
