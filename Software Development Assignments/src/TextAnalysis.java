@@ -5,6 +5,8 @@ import javafx.stage.Stage;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.event.*;
 public class TextAnalysis extends Application{
 	
 	static Text text;
@@ -94,12 +96,21 @@ public class TextAnalysis extends Application{
 	@Override
 	public void start(Stage primaryStage) throws Exception{
 		primaryStage.setTitle("Word Counts");
+		Button button = new Button("Show Top 20 Words");
 		
 		StackPane layout = new StackPane();
 		layout.getChildren().add(text);
+		Scene scene1 = new Scene(button, 250, 500);
+		Scene scene2 = new Scene(layout, 250, 500);
 		
-		Scene scene = new Scene(layout, 250, 500);
-		primaryStage.setScene(scene);
+		button.setOnAction(new EventHandler() {
+			@Override
+			public void handle(Event arg0) {
+				primaryStage.setScene(scene2);
+				primaryStage.show();
+			}
+		});
+		primaryStage.setScene(scene1);
 		primaryStage.show();
 	}
 
